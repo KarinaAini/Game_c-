@@ -36,3 +36,29 @@ int main() {
 		}
 	}
 	endwin();
+
+char bermainLagi; 
+    ofstream fileSkor;  
+    fileSkor.open("hasil_ludo.txt", ios::app);  
+    
+    do {
+        string pemain[3] = {"Karin", "Lia", "Fahmi"};
+        int posisi[3] = {0, 0, 0}; 
+        int giliran = 0;           
+        char lempar;
+
+        srand(time(0));
+
+        animasiTeks("\nSelamat datang di permainan Ludo sederhana untuk 3 pemain!");
+        animasiTeks("Pemain: Karin, Lia, Fahmi");
+        animasiTeks("Pemain pertama yang mencapai posisi " + to_string(TARGET_POSISI) + " menang.\n");
+
+        while (true) {
+            int pemainSaatIni = giliran % 3;
+            cout << "\nGiliran " << pemain[pemainSaatIni] << " (Posisi: " << posisi[pemainSaatIni] << ").\n";
+            cout << "Tekan 'l' untuk melempar dadu: ";
+            cin >> lempar;
+
+            if (lempar == 'l' || lempar == 'L') { 
+                 
+                animasiTeks(pemain[pemainSaatIni] + " sedang melempar dadu...");
