@@ -62,3 +62,39 @@ char bermainLagi;
             if (lempar == 'l' || lempar == 'L') { 
                  
                 animasiTeks(pemain[pemainSaatIni] + " sedang melempar dadu...");
+
+int hasilDadu = lemparDadu();
+                animasiTeks(pemain[pemainSaatIni] + " mendapatkan angka: " + to_string(hasilDadu));
+
+                posisi[pemainSaatIni] += hasilDadu;
+
+                if (posisi[pemainSaatIni] >= TARGET_POSISI) {
+                    animasiTeks("\nSelamat! " + pemain[pemainSaatIni] + " telah mencapai posisi " + to_string(TARGET_POSISI) + " dan menang!");
+                    
+                    
+                    fileSkor << "Pemenang: " << pemain[pemainSaatIni] << " dengan posisi " << posisi[pemainSaatIni] << "\n";
+                    
+                    break;
+                }
+            } else {
+                animasiTeks("Input tidak valid. Coba lagi.");
+                continue;
+            }
+
+            giliran++;
+        }
+
+        animasiTeks("\nPermainan selesai.");
+        cout << "Apakah Anda ingin bermain lagi? (y/n): ";
+        cin >> bermainLagi;
+
+    } while (bermainLagi == 'y' || bermainLagi == 'Y'); 
+
+    animasiTeks("Terima kasih telah bermain! \n");
+    cout << "Tekan Enter untuk keluar...";
+    cin.ignore();
+    cin.get();
+
+    fileSkor.close(); 
+    return 0;
+}
