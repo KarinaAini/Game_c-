@@ -55,3 +55,30 @@ char bermainLagi;
             if (lempar == 'l' || lempar == 'L') { 
                 int hasilDadu = lemparDadu();
                 cout << pemain[pemainSaatIni] << " melempar dadu dan mendapatkan angka: " << hasilDadu << "\n";
+
+posisi[pemainSaatIni] += hasilDadu;
+
+                
+                if (posisi[pemainSaatIni] >= TARGET_POSISI) {
+                    cout << "\nSelamat! " << pemain[pemainSaatIni] << " telah mencapai posisi " << TARGET_POSISI << " dan menang!\n";
+                    break;
+                }
+            } else {
+                cout << "Input tidak valid. Coba lagi.\n";
+                continue;
+            }
+
+           
+            giliran++;
+        }
+
+        
+        cout << "\nPermainan selesai.\n";
+        cout << "Apakah Anda ingin bermain lagi? (y/n): ";
+        cin >> bermainLagi;
+
+    } while (bermainLagi == 'y' || bermainLagi == 'Y'); 
+
+    cout << "Terima kasih telah bermain! \n";
+    return 0;
+}
