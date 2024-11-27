@@ -6,30 +6,30 @@
 
 using namespace std;
 
-const int TARGET_POSISI = 30; 
+const int TARGET_POSISI = 48; 
 
 int lemparDadu() {
     return rand() % 6 + 1; 
 }
 
 int main() {
-initscr();
-	
-for (int i=0; i<3; i++){
-	mvprintw(26, 100, "Loading....");
-	mvprintw(27, 100, "--------------------");
-	mvprintw(28, 100, "|                  |");
-	mvprintw(29, 100, "--------------------");
+    initscr();
+    
+	for (int i=0; i<3; i++){
+		mvprintw(26, 100, "Loading....");
+		mvprintw(27, 100, "--------------------");
+		mvprintw(28, 100, "|                  |");
+		mvprintw(29, 100, "--------------------");
 		
-	for (int f=1; f<18; f++){
-		mvprintw(28, 100 + f, ">");
-		refresh();
-		Sleep(200);
-	}
-}
-endwin();
+	    for (int f=1; f<18; f++){
+	    	mvprintw(28, 100 + f, ">");
+			refresh();
+			Sleep(200);
+	    }
+    }
+    endwin();
 
-char bermainLagi; 
+    char bermainLagi; 
 
     do {
        
@@ -56,7 +56,7 @@ char bermainLagi;
                 int hasilDadu = lemparDadu();
                 cout << pemain[pemainSaatIni] << " melempar dadu dan mendapatkan angka: " << hasilDadu << "\n";
 
-posisi[pemainSaatIni] += hasilDadu;
+                posisi[pemainSaatIni] += hasilDadu;
 
                 
                 if (posisi[pemainSaatIni] >= TARGET_POSISI) {
