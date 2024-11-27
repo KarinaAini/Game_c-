@@ -28,3 +28,30 @@ int main() {
 		}
 	}
 	endwin();
+
+char bermainLagi; 
+
+    do {
+       
+        string pemain[3] = {"Karin", "Lia", "Fahmi"};
+        int posisi[3] = {0, 0, 0}; 
+        int giliran = 0;           
+        char lempar;
+
+        srand(time(0));
+
+        cout << "\nSelamat datang di permainan Ludo sederhana untuk 3 pemain!\n";
+        cout << "Pemain: Karin, Lia, Fahmi\n";
+        cout << "Pemain pertama yang mencapai posisi " << TARGET_POSISI << " menang.\n";
+
+        
+        while (true) {
+          
+            int pemainSaatIni = giliran % 3;
+            cout << "\nGiliran " << pemain[pemainSaatIni] << " (Posisi: " << posisi[pemainSaatIni] << ").\n";
+            cout << "Tekan 'l' untuk melempar dadu: ";
+            cin >> lempar;
+
+            if (lempar == 'l' || lempar == 'L') { 
+                int hasilDadu = lemparDadu();
+                cout << pemain[pemainSaatIni] << " melempar dadu dan mendapatkan angka: " << hasilDadu << "\n";
