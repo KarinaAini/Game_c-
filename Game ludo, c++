@@ -13,21 +13,21 @@ int lemparDadu() {
 }
 
 int main() {
-	initscr();
+initscr();
 	
-	for (int i=0; i<3; i++){
-		mvprintw(26, 100, "Loading....");
-		mvprintw(27, 100, "--------------------");
-		mvprintw(28, 100, "|                  |");
-		mvprintw(29, 100, "--------------------");
+for (int i=0; i<3; i++){
+	mvprintw(26, 100, "Loading....");
+	mvprintw(27, 100, "--------------------");
+	mvprintw(28, 100, "|                  |");
+	mvprintw(29, 100, "--------------------");
 		
-		for (int f=1; f<18; f++){
+	for (int f=1; f<18; f++){
 		mvprintw(28, 100 + f, ">");
 		refresh();
 		Sleep(200);
-		}
 	}
-	endwin();
+}
+endwin();
 
 char bermainLagi; 
 
