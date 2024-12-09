@@ -39,3 +39,46 @@ void tampilkanMenu() {
         cout << "4. Keluar" << endl;
         cout << "Masukkan pilihan Anda: ";
         cin >> pilihan;
+
+switch (pilihan) {
+            case 1:
+                login();
+                break;
+            case 2:
+                daftarPengguna();
+                break;
+            case 3:
+                mainkanLudo();
+                break;
+            case 4:
+                cout << "Keluar dari permainan. Sampai jumpa!" << endl;
+                break;
+            default:
+                cout << "Pilihan tidak valid. Silakan coba lagi." << endl;
+        }
+    } while (pilihan != 4);
+}
+
+void login() {
+    string namaPengguna, kataSandi;
+    cout << "Masukkan nama pengguna: ";
+    cin >> namaPengguna;
+    cout << "Masukkan kata sandi: ";
+    cin >> kataSandi;
+
+    for (const auto& user : pengguna) {
+        if (user.namaPengguna == namaPengguna && user.kataSandi == kataSandi) {
+            cout << "Login berhasil! Selamat datang, " << namaPengguna << "!" << endl;
+            return;
+        }
+    }
+
+    cout << "Login gagal. Nama pengguna atau kata sandi tidak valid." << endl;
+}
+
+void daftarPengguna() {
+    string namaPengguna, kataSandi;
+    cout << "Masukkan nama pengguna baru: ";
+    cin >> namaPengguna;
+    cout << "Masukkan kata sandi baru: ";
+    cin >> kataSandi;
