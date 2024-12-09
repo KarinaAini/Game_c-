@@ -1,100 +1,41 @@
 #include <iostream>
-#include <ncurses/ncurses.h>
-#include <windows.h>
-#include <cstdlib>
+#include <string>
+#include <vector>
 #include <ctime>
-#include <fstream> 
+#include <cstdlib>
 
 using namespace std;
 
-const int TARGET_POSISI = 48; 
+void tampilkanMenu();
+void login();
+void mainkanLudo();
+void tampilkanPapan();
+void daftarPengguna();
+void lemparDadu();
+int pemainSaatIni = 0; 
 
-int lemparDadu() {
-    return rand() % 6 + 1; 
-}
+struct Pengguna {
+    string namaPengguna;
+    string kataSandi;
+    int posisi; 
+};
 
-void animasiTeks(const string& teks) {
-    for (char c : teks) {
-        cout << c;
-        Sleep(200);  
-    }
-    cout << endl;
-}
+vector<Pengguna> pengguna;
+
+
 int main() {
-	initscr();
-    
-	for (int i = 0; i < 3; i++) {
-		mvprintw(26, 100, "Loading....");
-		mvprintw(27, 100, "--------------------");
-		mvprintw(28, 100, "|                  |");
-		mvprintw(29, 100, "--------------------");
-		
-		for (int f = 1; f < 18; f++) {
-			mvprintw(28, 100 + f, ">");
-			refresh();
-			Sleep(500);
-		}
-	}
-	endwin();
-
-char bermainLagi; 
-    ofstream fileSkor;  
-    fileSkor.open("hasil_ludo.txt", ios::app);  
-    
-    do {
-        string pemain[3] = {"Karin", "Lia", "Fahmi"};
-        int posisi[3] = {0, 0, 0}; 
-        int giliran = 0;           
-        char lempar;
-
-        srand(time(0));
-
-        animasiTeks("\nSelamat datang di permainan Ludo sederhana untuk 3 pemain!");
-        animasiTeks("Pemain: Karin, Lia, Fahmi");
-        animasiTeks("Pemain pertama yang mencapai posisi " + to_string(TARGET_POSISI) + " menang.\n");
-
-        while (true) {
-            int pemainSaatIni = giliran % 3;
-            cout << "\nGiliran " << pemain[pemainSaatIni] << " (Posisi: " << posisi[pemainSaatIni] << ").\n";
-            cout << "Tekan 'l' untuk melempar dadu: ";
-            cin >> lempar;
-
-            if (lempar == 'l' || lempar == 'L') { 
-                 
-                animasiTeks(pemain[pemainSaatIni] + " sedang melempar dadu...");
-
-int hasilDadu = lemparDadu();
-                animasiTeks(pemain[pemainSaatIni] + " mendapatkan angka: " + to_string(hasilDadu));
-
-                posisi[pemainSaatIni] += hasilDadu;
-
-                if (posisi[pemainSaatIni] >= TARGET_POSISI) {
-                    animasiTeks("\nSelamat! " + pemain[pemainSaatIni] + " telah mencapai posisi " + to_string(TARGET_POSISI) + " dan menang!");
-                    
-                    
-                    fileSkor << "Pemenang: " << pemain[pemainSaatIni] << " dengan posisi " << posisi[pemainSaatIni] << "\n";
-                    
-                    break;
-                }
-            } else {
-                animasiTeks("Input tidak valid. Coba lagi.");
-                continue;
-            }
-
-            giliran++;
-        }
-
-        animasiTeks("\nPermainan selesai.");
-        cout << "Apakah Anda ingin bermain lagi? (y/n): ";
-        cin >> bermainLagi;
-
-    } while (bermainLagi == 'y' || bermainLagi == 'Y'); 
-
-    animasiTeks("Terima kasih telah bermain! \n");
-    cout << "Tekan Enter untuk keluar...";
-    cin.ignore();
-    cin.get();
-
-    fileSkor.close(); 
+    srand(time(0)); 
+    tampilkanMenu();
     return 0;
 }
+
+void tampilkanMenu() {
+    int pilihan;
+    do {
+        cout << "===== Menu Game Ludo =====" << endl;
+        cout << "1. Login" << endl;
+        cout << "2. Daftar" << endl;
+        cout << "3. Mainkan Ludo" << endl;
+        cout << "4. Keluar" << endl;
+        cout << "Masukkan pilihan Anda: ";
+        cin >> pilihan;
