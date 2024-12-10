@@ -57,3 +57,65 @@ void kalkulatorDiskon() {
     cin >> hargaAsli;
     cout << "Masukkan persentase diskon: ";
     cin >> persenDiskon;
+
+if (hargaAsli < 0 || persenDiskon < 0 || persenDiskon > 100) {
+        cout << "Input tidak valid. Harga dan diskon harus bernilai positif.\n";
+    } else {
+        float hargaSetelahDiskon = hitungHargaDiskon(hargaAsli, persenDiskon);
+        cout << "Harga setelah diskon: " << hargaSetelahDiskon << endl;
+    }
+}
+
+struct PelangganHotel {
+    string nama;
+    string noKTP;
+    int umur;
+    string tanggalReservasi;
+    int durasiMenginap;
+};
+
+struct Kamar {
+    int nomor;
+    bool tersedia;
+};
+
+class Hotel {
+private:
+    vector<PelangganHotel> daftarPelanggan;
+    vector<Kamar> daftarKamar;
+
+public:
+    Hotel(int jumlahKamar) {
+        for (int i = 1; i <= jumlahKamar; i++) {
+            Kamar kamar = {i, true};
+            daftarKamar.push_back(kamar);
+        }
+    }
+
+    void tambahPelanggan(const PelangganHotel& pelanggan) {
+        daftarPelanggan.push_back(pelanggan);
+    }
+
+    void reservasiKamar(const PelangganHotel& pelanggan) {
+        for (auto& kamar : daftarKamar) {
+            if (kamar.tersedia) {
+                kamar.tersedia = false;
+                tambahPelanggan(pelanggan);
+                cout << "Reservasi berhasil untuk pelanggan " << pelanggan.nama 
+                     << " di kamar nomor " << kamar.nomor << endl;
+                return;
+            }
+        }
+        cout << "Maaf, semua kamar sudah penuh.\n";
+    }
+
+    void tampilkanPelanggan() {
+        cout << "\nDaftar Pelanggan:\n";
+        for (const auto& pelanggan : daftarPelanggan) {
+            cout << "Nama: " << pelanggan.nama << ", No KTP: " << pelanggan.noKTP
+                 << ", Umur: " << pelanggan.umur << ", Tanggal Reservasi: " 
+                 << pelanggan.tanggalReservasi << ", Durasi Menginap: " 
+                 << pelanggan.durasiMenginap << " malam" << endl;
+        }
+    }
+};
