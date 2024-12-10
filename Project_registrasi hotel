@@ -119,3 +119,58 @@ public:
         }
     }
 };
+
+int main() {
+    Hotel hotel(100); 
+    int pilihan;
+
+    do {
+        cout << "\n=== Sistem Reservasi Hotel dan Kalkulator Diskon ===\n";
+        cout << "1. Tambah Reservasi (Customer)\n";
+        cout << "2. Lihat Reservasi (Customer)\n";
+        cout << "3. Kalkulator Diskon\n";
+        cout << "4. Tambah Reservasi (Pelanggan)\n";
+        cout << "5. Tampilkan Pelanggan (Pelanggan)\n";
+        cout << "6. Keluar\n";
+        cout << "Pilihan: ";
+        cin >> pilihan;
+
+        switch (pilihan) {
+            case 1:
+                tambahReservasi();
+                break;
+            case 2:
+                lihatReservasi();
+                break;
+            case 3:
+                kalkulatorDiskon();
+                break;
+            case 4: {
+                PelangganHotel pelanggan;
+                cout << "Masukkan nama pelanggan: ";
+                cin.ignore();
+                getline(cin, pelanggan.nama);
+                cout << "Masukkan nomor KTP pelanggan: ";
+                getline(cin, pelanggan.noKTP);
+                cout << "Masukkan umur pelanggan: ";
+                cin >> pelanggan.umur;
+                cout << "Masukkan tanggal reservasi (YYYY-MM-DD): ";
+                cin >> pelanggan.tanggalReservasi;
+                cout << "Masukkan durasi menginap (malam): ";
+                cin >> pelanggan.durasiMenginap;
+                hotel.reservasiKamar(pelanggan);
+                break;
+            }
+            case 5:
+                hotel.tampilkanPelanggan();
+                break;
+            case 6:
+                cout << "Keluar dari program.\n";
+                break;
+            default:
+                cout << "Pilihan tidak valid. Silakan coba lagi.\n";
+        }
+    } while (pilihan != 6);
+
+    return 0;
+}
