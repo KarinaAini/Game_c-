@@ -1,1 +1,59 @@
 #include <iostream>
+#include <vector>
+#include <string>
+
+using namespace std;
+
+struct Pelanggan {
+    string nama;
+    string telepon;
+    string tanggalCheckIn;
+    string tanggalCheckOut;
+    int nomorKamar;
+};
+
+vector<Pelanggan> pelanggan; 
+
+void tambahReservasi() {
+    Pelanggan p;
+    cout << "Masukkan nama pelanggan: ";
+    cin.ignore();
+    getline(cin, p.nama);
+    cout << "Masukkan nomor telepon pelanggan: ";
+    getline(cin, p.telepon);
+    cout << "Masukkan tanggal check-in (YYYY-MM-DD): ";
+    cin >> p.tanggalCheckIn;
+    cout << "Masukkan tanggal check-out (YYYY-MM-DD): ";
+    cin >> p.tanggalCheckOut;
+    cout << "Masukkan nomor kamar: ";
+    cin >> p.nomorKamar;
+    pelanggan.push_back(p);
+    cout << "Reservasi berhasil ditambahkan.\n";
+}
+
+void lihatReservasi() {
+    if (pelanggan.empty()) {
+        cout << "Belum ada reservasi.\n";
+        return;
+    }
+    cout << "Daftar Reservasi:\n";
+    for (size_t i = 0; i < pelanggan.size(); ++i) {
+        cout << i + 1 << ". Nama: " << pelanggan[i].nama
+             << ", Telepon: " << pelanggan[i].telepon
+             << ", Check-in: " << pelanggan[i].tanggalCheckIn
+             << ", Check-out: " << pelanggan[i].tanggalCheckOut
+             << ", Nomor Kamar: " << pelanggan[i].nomorKamar << endl;
+    }
+}
+
+float hitungHargaDiskon(float hargaAsli, float persenDiskon) {
+    return hargaAsli - (hargaAsli * (persenDiskon / 100));
+}
+
+void kalkulatorDiskon() {
+    float hargaAsli, persenDiskon;
+    cout << "\n=== Kalkulator Diskon ===\n";
+    cout << "Masukkan harga asli: ";
+    cin >> hargaAsli;
+    cout << "Masukkan persentase diskon: ";
+    cin >> persenDiskon;
