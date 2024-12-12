@@ -3,6 +3,8 @@
 #include <vector>
 #include <ctime>
 #include <cstdlib>
+#include <ncurses/ncurses.h>
+#include <windows.h> 
 
 using namespace std;
 
@@ -12,22 +14,45 @@ void mainkanLudo();
 void tampilkanPapan();
 void daftarPengguna();
 void lemparDadu();
-int pemainSaatIni = 0; 
+void tampilkanLoading(); 
+int pemainSaatIni = 0;
 
 struct Pengguna {
     string namaPengguna;
     string kataSandi;
-    int posisi; 
+    int posisi;
 };
 
 vector<Pengguna> pengguna;
 
-
 int main() {
-    srand(time(0)); 
+    srand(time(0));
+    tampilkanLoading(); 
     tampilkanMenu();
     return 0;
 }
+
+void tampilkanLoading() {
+    initscr(); 
+
+    for (int i = 0; i < 3; i++) {
+        mvprintw(12, 50, "Loading....");
+        mvprintw(13, 50, "--------------------");
+        mvprintw(14, 50, "|                  |");
+        mvprintw(15, 50, "--------------------");
+
+        for (int f = 1; f < 18; f++) {
+            mvprintw(14, 50 + f, ">");
+            refresh();
+            Sleep(500); 
+        }
+
+        clear(); 
+    }
+
+    endwin(); 
+}
+
 
 void tampilkanMenu() {
     int pilihan;
