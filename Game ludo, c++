@@ -7,7 +7,7 @@
 #include <windows.h> 
 
 using namespace std;
-
+ 
 void tampilkanMenu();
 void login();
 void mainkanLudo();
