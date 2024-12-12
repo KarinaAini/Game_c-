@@ -37,22 +37,23 @@ int main() {
 }
 
 void tampilkanLoading() {
-    for (int i = 0; i < 3; i++) {
+    for (int i = 0; i < 3; i++) { 
         system("cls"); 
         cout << "Loading...." << endl;
         cout << "--------------------" << endl;
-        cout << "|                  |" << endl;
-        cout << "--------------------" << endl;
-
-        for (int f = 1; f < 18; f++) {
-            cout << "\r|";
-            for (int j = 0; j < f; j++) cout << ">";
-            for (int j = f; j < 18; j++) cout << " ";
+        cout << "|"; 
+        
+        for (int f = 1; f <= 18; f++) {
+            cout << "\r|"; 
+            for (int j = 0; j < f; j++) cout << ">"; 
+            for (int j = f; j < 18; j++) cout << " "; 
             cout << "|";
+            
             Sleep(50); 
         }
 
-        cout << endl << " " << endl;
+        cout << endl;
+        cout << "--------------------" << endl;
         Sleep(500); 
     }
 }
