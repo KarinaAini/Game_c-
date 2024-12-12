@@ -1,149 +1,62 @@
 #include <iostream>
 #include <string>
 #include <vector>
-#include <ctime>
-#include <cstdlib> 
-#include <ncurses/ncurses.h>
-#include <windows.h> 
+#include <thread>
+#include <chrono>
+#include <cstdlib>
+#include <iomanip>
+#include <windows.h>
 
 using namespace std;
- 
+
+struct Pengguna {
+    string namaPengguna;
+    string kataSandi;
+    int posisi = 0;
+};
+
+vector<Pengguna> pengguna;
+int pemainSaatIni = 0;
+
+const int ukuranPapan = 10;
+const int totalPetak = ukuranPapan * ukuranPapan;
+
 void tampilkanMenu();
 void login();
 void mainkanLudo();
 void tampilkanPapan();
 void daftarPengguna();
 void lemparDadu();
-void tampilkanLoading(); 
-int pemainSaatIni = 0;
-
-struct Pengguna {
-    string namaPengguna;
-    string kataSandi;
-    int posisi;
-};
-
-vector<Pengguna> pengguna;
+void tampilkanLoading();
 
 int main() {
     srand(time(0));
-    tampilkanLoading(); 
+    tampilkanLoading();
     tampilkanMenu();
     return 0;
 }
 
 void tampilkanLoading() {
-    initscr(); 
-
     for (int i = 0; i < 3; i++) {
-        mvprintw(12, 50, "Loading....");
-        mvprintw(13, 50, "--------------------");
-        mvprintw(14, 50, "|                  |");
-        mvprintw(15, 50, "--------------------");
+        system("cls"); 
+        cout << "Loading...." << endl;
+        cout << "--------------------" << endl;
+        cout << "|                  |" << endl;
+        cout << "--------------------" << endl;
 
         for (int f = 1; f < 18; f++) {
-            mvprintw(14, 50 + f, ">");
-            refresh();
-            Sleep(500); 
+            cout << "\r|";
+            for (int j = 0; j < f; j++) cout << ">";
+            for (int j = f; j < 18; j++) cout << " ";
+            cout << "|";
+            Sleep(50); 
         }
 
-        clear(); 
+        cout << endl << " " << endl;
+        Sleep(500); 
     }
-
-    endwin(); 
 }
-
 
 void tampilkanMenu() {
     int pilihan;
     do {
-        cout << "===== Menu Game Ludo =====" << endl;
-        cout << "1. Login" << endl;
-        cout << "2. Daftar" << endl;
-        cout << "3. Mainkan Ludo" << endl;
-        cout << "4. Keluar" << endl;
-        cout << "Masukkan pilihan Anda: ";
-        cin >> pilihan;
-
-switch (pilihan) {
-            case 1:
-                login();
-                break;
-            case 2:
-                daftarPengguna();
-                break;
-            case 3:
-                mainkanLudo();
-                break;
-            case 4:
-                cout << "Keluar dari permainan. Sampai jumpa!" << endl;
-                break;
-            default:
-                cout << "Pilihan tidak valid. Silakan coba lagi." << endl;
-        }
-    } while (pilihan != 4);
-}
-
-void login() {
-    string namaPengguna, kataSandi;
-    cout << "Masukkan nama pengguna: ";
-    cin >> namaPengguna;
-    cout << "Masukkan kata sandi: ";
-    cin >> kataSandi;
-
-    for (const auto& user : pengguna) {
-        if (user.namaPengguna == namaPengguna && user.kataSandi == kataSandi) {
-            cout << "Login berhasil! Selamat datang, " << namaPengguna << "!" << endl;
-            return;
-        }
-    }
-
-    cout << "Login gagal. Nama pengguna atau kata sandi tidak valid." << endl;
-}
-
-void daftarPengguna() {
-    string namaPengguna, kataSandi;
-    cout << "Masukkan nama pengguna baru: ";
-    cin >> namaPengguna;
-    cout << "Masukkan kata sandi baru: ";
-    cin >> kataSandi;
-
-pengguna.push_back({namaPengguna, kataSandi, 0});
-    cout << "Pengguna berhasil didaftarkan!" << endl;
-}
-
-void mainkanLudo() {
-    if (pengguna.size() < 3) {
-        cout << "Tidak cukup pemain. Silakan daftar setidaknya 3 pemain." << endl;
-        return;
-    }
-
-    while (true) {
-        tampilkanPapan();
-        lemparDadu();
-
-        int daduRoll = rand() % 6 + 1;
-        pengguna[pemainSaatIni].posisi += daduRoll;
-        cout << pengguna[pemainSaatIni].namaPengguna << " mengocok dadu dan mendapatkan " << daduRoll << " dan bergerak ke posisi " << pengguna[pemainSaatIni].posisi << endl;
-
-        if (pengguna[pemainSaatIni].posisi >= 100) { 
-            cout << pengguna[pemainSaatIni].namaPengguna << " menang!" << endl;
-            break;
-        }
-
-        pemainSaatIni = (pemainSaatIni + 1) % 3;
-    }
-}
-
-void tampilkanPapan() {
-    cout << "===== Papan Ludo =====" << endl;
-    for (const auto& user : pengguna) {
-        cout << user.namaPengguna << " berada di posisi " << user.posisi << endl;
-    }
-}
-
-void lemparDadu() {
-    cout << "Giliran " << pengguna[pemainSaatIni].namaPengguna << ". Tekan Enter untuk mengocok dadu." << endl;
-    cin.ignore();
-    cin.get();
-}
