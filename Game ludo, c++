@@ -57,6 +57,129 @@ void tampilkanLoading() {
     }
 }
 
+[15.22, 12/12/2024] karina aini ilkom24: cout << "===== Menu Game Ludo =====" << endl;
+        cout << "1. Login" << endl;
+        cout << "2. Daftar" << endl;
+        cout << "3. Mainkan Ludo" << endl;
+        cout << "4. Keluar" << endl;
+        cout << "Masukkan pilihan Anda: ";
+        cin >> pilihan;
+
+        if (cin.fail()) {
+            cin.clear();
+            cin.ignore(numeric_limits<streamsize>::max(), '\n');
+            cout << "Input tidak valid. Masukkan angka antara 1-4." << endl;
+            continue;
+        }
+
+        switch (pilihan) {
+            case 1:
+                login();
+                break;
+            case 2:
+                daftarPengguna();
+                break;
+            case 3:
+                mainkanLudo();
+                break;
+            case 4:
+                cout << "Keluar dari permainan. Sampai jumpa!" << endl;
+                break;
+            default:
+                cout << "Pilihan tidak valid. Silakan coba lagi." << endl;
+        }
+    } while (pilihan != 4);
+}
+
+void login() {
+    string namaPengguna, kataSandi;
+    cout << "Masukkan nama pengguna: ";
+    cin >> namaPengguna;
+    cout << "Masukkan kata sandi: ";
+    cin >> kataSandi;
+
+    for (const auto& user : pengguna) {
+        if (user.namaPengguna == namaPengguna && user.kataSandi == kataSandi) {
+            cout << "Login berhasil! Selamat datang, " << namaPengguna << "!" << endl;
+            return;
+        }
+    }
+
+    cout << "Login gagal. Nama pengguna atau kata sandi tidak valid." << endl;
+}
+
+void daftarPengguna() {
+    string namaPengguna, kataSandi;
+    cout << "Masukkan nama pengguna baru: ";
+    cin >> namaPengguna;
+    cout << "Masukkan kata sandi baru: ";
+    cin >> kataSandi;
+
+    if (namaPengguna.empty() || kataSandi.empty()) {
+        cout << "Nama pengguna dan kata sandi tidak boleh kosong!" << endl;
+        return;
+    }
+[15.22, 12/12/2024] karina aini ilkom24: ini @liaaa
+[15.23, 12/12/2024] karina aini ilkom24: pengguna.push_back({namaPengguna, kataSandi, 0});
+    cout << "Pengguna berhasil didaftarkan!" << endl;
+}
+
+void tampilkanPapan() {
+    cout << "===== Papan Ludo =====" << endl;
+
+    for (int i = 0; i < ukuranPapan; i++) {
+        for (int j = 0; j < ukuranPapan; j++) {
+            int posisi = i * ukuranPapan + j;
+            bool adaPemain = false;
+
+            for (const auto& user : pengguna) {
+                if (user.posisi == posisi) {
+                    cout << setw(3) << user.namaPengguna[0]; 
+                    adaPemain = true;
+                    break;
+                }
+            }
+
+            if (!adaPemain) {
+                cout << setw(3) << ".";
+            }
+        }
+        cout << endl;
+    }
+}
+
+void lemparDadu() {
+    cout << "Giliran " << pengguna[pemainSaatIni].namaPengguna << ". Tekan Enter untuk mengocok dadu." << endl;
+    cin.ignore();
+    cin.get();
+
+    int daduRoll = rand() % 6 + 1;
+    cout << "Anda mendapatkan angka " << daduRoll << "!" << endl;
+    pengguna[pemainSaatIni].posisi += daduRoll;
+
+    if (pengguna[pemainSaatIni].posisi >= totalPetak) {
+        pengguna[pemainSaatIni].posisi = totalPetak - 1; 
+    }
+}
+
+void mainkanLudo() {
+    if (pengguna.size() < 2) {
+        cout << "Tidak cukup pemain. Silakan daftar setidaknya 2 pemain." << endl;
+        return;
+    }
+
+    while (true) {
+        tampilkanPapan();
+        lemparDadu();
+
+        if (pengguna[pemainSaatIni].posisi == totalPetak - 1) {
+            cout << pengguna[pemainSaatIni].namaPengguna << " menang!" << endl;
+            break;
+        }
+
+        pemainSaatIni = (pemainSaatIni + 1) % pengguna.size();
+    }
+}
 void tampilkanMenu() {
     int pilihan;
     do {
